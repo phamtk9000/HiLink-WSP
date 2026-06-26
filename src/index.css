@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap');
+
+:root {
+  --bg:          #F8F6F1;
+  --bg-2:        #F0EDE6;
+  --bg-3:        #EAE3D2;
+  --text:        #0F0F0F;
+  --text-2:      #444444;
+  --text-3:      #707070;
+  --gold:        #A88F5C;
+  --border:      rgba(15,15,15,0.10);
+  --border-gold: rgba(168,143,92,0.30);
+  --success:     #2D6A4F;
+  --olive:       #3D4A2E;
+  --olive-deep:  #2A3420;
+  --warning:     #B5862A;
+  --danger:      #C0392B;
+  --surface:     rgba(15,15,15,0.03);
+  --surface-hover: rgba(15,15,15,0.06);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(168,143,92,0.25); border-radius: 0; }
+
+/* Focus */
+*:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 0; }
+
+/* Range slider */
+input[type=range] {
+  -webkit-appearance: none; height: 2px;
+  background: rgba(15,15,15,0.12); border-radius: 0; outline: none; width: 100%;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px;
+  border-radius: 0; background: var(--gold); cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(168,143,92,0.2);
+}
+
+input[type=checkbox] { accent-color: var(--gold); width: 14px; height: 14px; cursor: pointer; }
+
+/* ── Background patterns (Change 4) ── */
+.pattern-dots {
+  background-image: radial-gradient(rgba(168,143,92,0.10) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.pattern-grid {
+  background-image:
+    linear-gradient(rgba(15,15,15,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,15,15,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.pattern-diag {
+  background-image: repeating-linear-gradient(45deg, rgba(168,143,92,0.04) 0, rgba(168,143,92,0.04) 1px, transparent 1px, transparent 14px);
+}
+.pattern-soft-radial {
+  background-image: radial-gradient(circle at 20% 20%, rgba(168,143,92,0.06) 0%, transparent 40%),
+                    radial-gradient(circle at 80% 70%, rgba(45,106,79,0.05) 0%, transparent 45%);
+}
+
+/* ── Diagonal corner accents (high-end editorial vibe) ── */
+.pattern-diag-corners {
+  position: relative;
+  overflow: hidden;
+}
+.pattern-diag-corners::before,
+.pattern-diag-corners::after {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(168,143,92,0.05) 0,
+      rgba(168,143,92,0.05) 1px,
+      transparent 1px,
+      transparent 11px),
+    linear-gradient(135deg, rgba(168,143,92,0.08), transparent 60%);
+}
+.pattern-diag-corners::before {
+  top: -120px;
+  right: -120px;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+.pattern-diag-corners::after {
+  bottom: -120px;
+  left: -120px;
+  clip-path: polygon(0 100%, 100% 100%, 0 0);
+}
+.pattern-diag-corners > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Pattern with green accents (for meeting rooms / event venues) ── */
+.pattern-olive-corners {
+  position: relative;
+  overflow: hidden;
+}
+.pattern-olive-corners::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 320px; height: 320px;
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(61,74,46,0.06) 0, rgba(61,74,46,0.06) 1px,
+      transparent 1px, transparent 12px),
+    linear-gradient(225deg, rgba(61,74,46,0.10), transparent 60%);
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  pointer-events: none; z-index: 0;
+}
+.pattern-olive-corners > * { position: relative; z-index: 1; }
+
+/* ── Hover lift effect (Change 3) ── */
+.hover-lift { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; }
+.hover-lift:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(15,15,15,0.12); }
+
+.hover-gold-line { position: relative; }
+.hover-gold-line::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px;
+  background: var(--gold); transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.hover-gold-line:hover::after { width: 100%; }
+input[type=date]::-webkit-calendar-picker-indicator { filter: none; opacity: 0.5; cursor: pointer; }
+
+/* Animations */
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 28s linear infinite; }
+
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(1.4); } }
+.pulse { animation: pulse 2s ease-in-out infinite; }
+
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+@keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+.float { animation: float 4s ease-in-out infinite; }
+
+@keyframes seat-update { 0%,100% { opacity:1; } 40% { opacity:0.2; } }
+.seat-update { animation: seat-update 0.5s ease; }
+
+/* Grain overlay — subtle on light */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.2;
+}
+
+/* Gold text utility */
+.gold-text {
+  color: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .hide-mob { display: none !important; }
+  .show-mob { display: flex !important; }
+}
+
+/* ───────────────────────────────────────────────
+   Responsive layout — optimize for all devices
+   (uses !important to override inline grid styles)
+   ─────────────────────────────────────────────── */
+
+/* Media never overflows its container */
+img, video, svg { max-width: 100%; }
+
+/* Tablet ≤ 1024px */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .stats-grid > *:nth-child(2n) { border-right: none !important; }
+  /* Find-my-space: stack filter panel above results */
+  .reco-shell { grid-template-columns: 1fr !important; }
+  .reco-shell > div:first-child { border-right: none !important; }
+}
+
+/* Mobile ≤ 768px */
+@media (max-width: 768px) {
+  .section-pad { padding-left: 22px !important; padding-right: 22px !important; }
+  .footer-pad  { padding-left: 22px !important; padding-right: 22px !important; }
+
+  .hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .hero-collage { grid-template-rows: 200px 150px !important; gap: 6px !important; }
+  .features-grid { grid-template-columns: 1fr !important; }
+  .features-grid > * { border-right: none !important; border-bottom: 1px solid var(--border) !important; }
+  .explore-grid { grid-template-columns: 1fr !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .testi-grid { grid-template-columns: 1fr !important; }
+  .testi-grid > * { border-right: none !important; padding-left: 0 !important; padding-right: 0 !important; border-bottom: 1px solid var(--border); padding-bottom: 28px; margin-bottom: 28px; }
+  .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+  /* Find-my-space filter rows stack label over options */
+  .reco-shell { grid-template-columns: 1fr !important; }
+  .reco-row { grid-template-columns: 1fr !important; }
+  .reco-row > span { padding-top: 0 !important; padding-bottom: 8px !important; }
+  .reco-results-grid { grid-template-columns: 1fr !important; }
+  .reco-panel { padding: 24px !important; }
+  .reco-filter { padding: 28px 22px !important; }
+
+  /* Legal pages stack the language columns */
+  .legal-cols { grid-template-columns: 1fr !important; gap: 18px !important; }
+}
+
+/* Small phones ≤ 460px */
+@media (max-width: 460px) {
+  .stats-grid { grid-template-columns: 1fr !important; }
+  .stats-grid > * { border-right: none !important; border-bottom: 1px solid var(--border) !important; }
+}
+
+/* ── Custom gold range slider (Find my space budget) ───────────────────────── */
+.hilink-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  margin: 6px 0;
+}
+.hilink-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: transparent;
+}
+.hilink-range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: #e6ddca;
+}
+.hilink-range::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: #c9a55a;
+}
+.hilink-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #d8b76e 0%, #c9a55a 55%, #a88f5c 100%);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(168, 143, 92, 0.45), 0 0 0 1px rgba(168, 143, 92, 0.35);
+  cursor: grab;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.hilink-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #d8b76e 0%, #c9a55a 55%, #a88f5c 100%);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(168, 143, 92, 0.45), 0 0 0 1px rgba(168, 143, 92, 0.35);
+  cursor: grab;
+}
+.hilink-range:hover::-webkit-slider-thumb { transform: scale(1.12); }
+.hilink-range:active::-webkit-slider-thumb { cursor: grabbing; transform: scale(1.05); box-shadow: 0 2px 10px rgba(168, 143, 92, 0.6); }
+.hilink-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(201, 165, 90, 0.30); }
+.hilink-range:hover::-moz-range-thumb { transform: scale(1.12); }
